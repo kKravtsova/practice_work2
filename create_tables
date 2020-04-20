@@ -6,7 +6,7 @@ CREATE TABLE Country(
 CREATE TABLE People(
       number INT NOT NULL UNIQUE PRIMARY KEY,
       gender VARCHAR(10)
-      age INT
+      age INT NOT NULL
 );
 
 
