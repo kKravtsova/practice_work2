@@ -1,0 +1,28 @@
+CREATE TABLE Country(
+      destination VARCHAR(30) NOT NULL UNIQUE PRIMARY KEY,
+      duration FLOAT(10) NOT NULL
+);
+ 
+CREATE TABLE People(
+      number INT NOT NULL UNIQUE PRIMARY KEY,
+      gender VARCHAR(10)
+      age INT
+);
+
+
+CREATE TABLE Agency(
+agency_name VARCHAR(20) NOT NULL,
+agency_type VARCHAR(20) NOT NULL,
+product_name VARCHAR (20) NOT NULL REFERENCES Insurance(product_name),
+dist_channel VARCHAR(20) NOT NULL,
+CONSTRAINT PK_Agency PRIMARY KEY (agency_name,agency_type)
+);
+
+CREATE TABLE Insurance(
+    product_name VARCHAR (20) NOT NULL UNIQUE PRIMARY KEY,
+    destination VARCHAR (20) NOT NULL REFERENCES Country(destination),
+    number INT NOT NULL REFERENCES People(number),
+    net_sales FLOAT(20) NOT NULL,
+    claim VARCHAR(20) NOT NULL,
+    comision FLOAT(20) NOT NULL
+);
