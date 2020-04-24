@@ -1,0 +1,19 @@
+-- Запит 1: вивести топ 10 країн з максимальною відвідуваносю
+select DESTINATION.DESTINATION,COUNT(*) as cnt
+from PRODUCT_DETAILS
+join DESTINATION on DESTINATION.DESTINATION=PRODUCT_DETAILS.DESTINATION_CODE
+group by DESTINATION.DESTINATION
+order by COUNT(*) desc
+FETCH FIRST 10 ROWS ONLY;
+
+-- Запит 2: вивести відсоток онлайн та офлайн страхувань
+select DISTRIBUTION_CHANNEL,COUNT(*)
+from PRODUCT_DETAILS
+GROUP BY DISTRIBUTION_CHANNEL;
+
+--Запит 3: розподіл максимальної комісії за країною,де комісія більше за 150
+select DESTINATION.DESTINATION,max(COMMISION)
+from PRODUCT_DETAILS
+join DESTINATION on DESTINATION.DESTINATION=PRODUCT_DETAILS.DESTINATION_CODE
+group by DESTINATION.DESTINATION
+having max(COMMISION) > 150;
