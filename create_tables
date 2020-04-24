@@ -1,28 +1,29 @@
-CREATE TABLE Country(
-      destination VARCHAR(30) NOT NULL UNIQUE PRIMARY KEY,
-      duration FLOAT(10) NOT NULL
+create table AGENCY(
+AGENCY  varchar2(10) not null primary key,
+AGENCY_TYPE varchar2(15)
 );
- 
-CREATE TABLE People(
-      number INT NOT NULL UNIQUE PRIMARY KEY,
-      gender VARCHAR(10)
-      age INT NOT NULL
+create table PRODUCT(
+AGENCY_CODE varchar2(10) not null references AGENCY(AGENCY),
+PRODUCT_NAME varchar2(40) not null ,
+CONSTRAINT PK_PRODUCT PRIMARY KEY (AGENCY_CODE,PRODUCT_NAME)
+);
+
+
+create table DESTINATION(
+DESTINATION varchar2(50) not null primary key
 );
 
 
-CREATE TABLE Agency(
-agency_name VARCHAR(20) NOT NULL,
-agency_type VARCHAR(20) NOT NULL,
-product_name VARCHAR (20) NOT NULL REFERENCES Insurance(product_name),
-dist_channel VARCHAR(20) NOT NULL,
-CONSTRAINT PK_Agency PRIMARY KEY (agency_name,agency_type)
-);
 
-CREATE TABLE Insurance(
-    product_name VARCHAR (20) NOT NULL UNIQUE PRIMARY KEY,
-    destination VARCHAR (20) NOT NULL REFERENCES Country(destination),
-    number INT NOT NULL REFERENCES People(number),
-    net_sales FLOAT(20) NOT NULL,
-    claim VARCHAR(20) NOT NULL,
-    comision FLOAT(20) NOT NULL
-);
+create table PRODUCT_DETAILS(
+    AGENCY_CODE VARCHAR(10) NOT NULL,
+    PRODUCT_CODE varchar2(40) NOT NULL,
+    DISTRIBUTION_CHANNEL varchar2(15) not null ,
+    CLAIM VARCHAR2(5) NOT  NULL CHECK( CLAIM IN ('No','Yes')),
+    DURATION NUMBER(*) DEFAULT NULL,
+    DESTINATION_CODE varchar2(50) DEFAULT null REFERENCES DESTINATION(DESTINATION),
+    NET_SALES NUMBER(*,2) NOT NULL,
+    COMMISION NUMBER(*,2) NOT NULL,
+    GENDER VARCHAR2(1) DEFAULT NULL CHECK ( GENDER IN ('F','M',NULL)),
+    AGE number(*) NOT NULL,
+    CONSTRAINT fk_PRODUCT_DETAILS Foreign Key (AGENCY_CODE,PRODUCT_CODE) References PRODUCT(AGENCY_CODE, PRODUCT_NAME)
